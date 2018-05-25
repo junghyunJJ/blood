@@ -17,9 +17,9 @@ knitr::opts_chunk$set(echo = TRUE, fig.align="center")
 - All the studies, whether in yeast, worms, mice or, more specifically, in humans, describe essential genes as located in critical places in the **core developmental, metabolic and signalling pathways**. Specifically, compared with other genes, essential genes are described as being broadly and strongly expressed and depleted in **expression quantitative trait loci (eQTLs).**^[[Human gene essentiality, Nat Rev Genet. 2018](https://www.nature.com/articles/nrg.2017.75)]
 
 ### Essential genes in Gene ontology terms
- - The [Gene ontology (GO)](https://en.wikipedia.org/wiki/Gene_ontology) terms are derived from biological process category.
- 
- - The percentage of essential genes in the GO terms, which involve over 150 genes, were examined.
+ - The [Gene ontology (GO)](https://en.wikipedia.org/wiki/Gene_ontology) provides a set of hierarchical controlled vocabulary split into 3 categories: **"Biological process"**, "Molecular function", "Cellular component".
+ - Biological process terms, which involve over 150 genes, were used in this analysis. 
+ - The GO terms were obtained from [Molecular Signatures Database.](http://software.broadinstitute.org/gsea/msigdb/index.jsp)
 
 ```{r echo=FALSE, fig.height=5, fig.width=3.5}
 library(ggplot2)
@@ -28,9 +28,11 @@ ggplot(data_c5bp,aes(data_c5bp$dev,data_c5bp$ratio,fill = data_c5bp$dev)) +
   geom_boxplot(notch = T)+
   theme_bw()+
   xlab("") +
+  ggtitle("4,436 GO terms")+
   ylab("% essential gene")+
   theme(legend.position="none")+
   scale_fill_brewer(palette="Dark2")+
+  theme(title = element_text(size = 15, color = "black"))+
   theme(axis.title.y = element_text(size = 12, color = "black"))+
   theme(axis.text.y = element_text(size = 9, colour = "black"))+
   theme(axis.text.x = element_text(size = 12, colour = "black"))

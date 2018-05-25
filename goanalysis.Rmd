@@ -1,0 +1,66 @@
+---
+title: "Blood genesets"
+author: "Junghyun Jung"
+date: "`r Sys.Date()`"
+output:
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.align="center")
+```
+### Essential genes
+
+- A gene can be defined as **essential** when loss of its function compromises viability of the individual (for example, embryonic lethality) or results in profound loss of fitness.
+
+- All the studies, whether in yeast, worms, mice or, more specifically, in humans, describe essential genes as located in critical places in the **core developmental, metabolic and signalling pathways**. Specifically, compared with other genes, essential genes are described as being broadly and strongly expressed and depleted in **expression quantitative trait loci (eQTLs).**^[[Human gene essentiality, Nat Rev Genet. 2018](https://www.nature.com/articles/nrg.2017.75)]
+
+### Essential genes in Gene ontology terms
+ - [Gene ontology (GO)](https://en.wikipedia.org/wiki/Gene_ontology)의 biological process에 대한 것을 사용하였다.
+ - 유전자의 수가 150이 넘는 GO term을 대상으로 essential genes가 몇 % 가 있는지 확인해보았다.
+ - Development or morphogenes에 관련된 biological process가 너 많은 비율의 essential gene이 있는것을 확인하였다.
+
+```{r echo=FALSE, fig.height=5, fig.width=3.5}
+library(ggplot2)
+load("data_c5bp.rda")
+ggplot(data_c5bp,aes(data_c5bp$dev,data_c5bp$ratio,fill = data_c5bp$dev)) +
+  geom_boxplot(notch = T)+
+  theme_bw()+
+  xlab("") +
+  ylab("% essential gene")+
+  theme(legend.position="none")+
+  scale_fill_brewer(palette="Dark2")+
+  theme(axis.title.y = element_text(size = 12, color = "black"))+
+  theme(axis.text.y = element_text(size = 9, colour = "black"))+
+  theme(axis.text.x = element_text(size = 12, colour = "black"))
+
+```
+
+
+### Blood related Gene Ontology terms
+
+name | # genes|% essential|description |
+-------------|-------|-----------|-------------------------------------------
+[**Blood vessel morphogenesis**][2] | 364 |58.8 |The process in which the anatomical structures of blood vessels are generated and organized. The blood vessel is the vasculature carrying blood.
+[Regulation of blood circulation][4]| 295 | 34.9 |Any process that modulates the frequency, rate or extent of blood circulation.	
+[Regulation of blood pressure][5] | 169 |34.9 |Any process that modulates the force with which blood travels through the circulatory system. The process is controlled by a balance of processes that increase pressure and decrease pressure.
+[**Circulatory system development**][3] | 788 |63.2| The process whose specific outcome is the progression of the circulatory system over time, from its formation to the mature structure. The circulatory system is the organ system that passes nutrients (such as amino acids and electrolytes), gases, hormones, **blood cells**, etc. to and from cells in the body to help fight diseases and help stabilize body temperature and pH to maintain homeostasis.
+
+
+### conclusion
+ - Circulatory system development나 Blood vessel morphogenesis 에 대한것이 eQTL 분석 적용에 더 좋을것이라 판단됩니다.
+ - 유전자의 숫자를 고려하였을때 **Blood vessel morphogenesis**가 제일 최선의 선택이라고 판단됩니다.
+
+
+
+
+
+Because circulatory system development is a core developmental process
+
+
+[2]: http://amigo.geneontology.org/amigo/term/GO:0048514
+[3]: http://amigo.geneontology.org/amigo/term/GO:0072359
+[4]: http://amigo.geneontology.org/amigo/term/GO:1903522
+[5]: http://amigo.geneontology.org/amigo/term/GO:0008217
+
